@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформлення замовлення - Піца буфету УКД</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-content">
+        <h1>🍕 Буфет УКД — Цифрове замовлення</h1>
+        <p>
+            Практична робота №2 |
+            <a href="https://www.figma.com/design/eT8Q0W8R1yW0AAGfCi0lWO/Untitled?node-id=0-1&p=f&t=oDmMw2PrPqS1RweO-0" target="_blank" style="color: #60a5fa; text-decoration: underline;">
+                🎨 Figma UI Kit Макет
+            </a>
+        </p>
+    </div>
+</header>
+
+<main class="container">
+    <div class="checkout-wrapper">
+
+        <!-- Блок 1: Форма введення даних -->
+        <section class="form-section">
+            <h2>Контактні дані та параметри</h2>
+
+            <form id="checkoutForm" action="#" method="post" onsubmit="handleOrderSubmit(event)">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">Ім'я <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" class="input-field" placeholder="Сергій" required minlength="3">
+                        <span class="field-hint">Мінімум 3 символи</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Прізвище <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" class="input-field" placeholder="Корольчук" required minlength="3">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Електронна пошта <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" class="input-field" placeholder="student@ukd.edu.ua" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Номер телефону</label>
+                        <input type="tel" id="phone" name="phone" class="input-field" placeholder="+380 (97) 000-00-00" pattern="^\+380\d{9}$">
+                    </div>
+                </div>
+
+                <!-- Оновлений випадаючий список відповідно до розкладу з зображення -->
+                <div class="form-group">
+                    <label for="deliveryTime">Час отримання (за розкладом пар) <span class="required">*</span></label>
+                    <select id="deliveryTime" name="deliveryTime" class="select-field" required>
+                        <option value="">-- Оберіть час перерви --</option>
+                        <option value="break_big">11:20 - 12:00 (Велика перерва перед 3 парою)</option>
+                        <option value="break_pair3">13:20 - 13:30 (Перерва: Паралельні та розподілені обчислення)</option>
+                        <option value="break_pair4">14:50 - 15:10 (Перерва: Prompt-інжиніринг)</option>
+                        <option value="break_pair5">16:30 (Після 5 пари: Розробка веб-додатків)</option>
+                    </select>
+                </div>
+
+                <fieldset class="form-fieldset">
+                    <legend>Спосіб отримання замовлення</legend>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="deliveryType" value="buffet" checked>
+                            <span>Забереться в буфеті (1 поверх)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="deliveryType" value="hall">
+                            <span>Доставка в хол університету (+10 грн)</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="form-group">
+                    <label for="sauceRange">Додаткові соуси (шт.): <span id="sauceValue">2</span></label>
+                    <input type="range" id="sauceRange" name="sauceRange" class="range-slider" min="0" max="5" value="2" oninput="document.getElementById('sauceValue').innerText = this.value">
+                </div>
+
+                <div class="form-group toggle-group">
+                    <label class="switch-label" for="contactlessToggle">
+                        <span>Безконтактне видання за QR-кодом</span>
+                        <span class="switch">
+                                <input type="checkbox" id="contactlessToggle" name="contactless">
+                                <span class="slider round"></span>
+                            </span>
+                    </label>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="agreeRules" name="agreeRules" required>
+                        <span>Я погоджуюся з правилами університету та публічною офертою <span class="required">*</span></span>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="comments">Коментар до замовлення</label>
+                    <textarea id="comments" name="comments" class="textarea-field" rows="3" placeholder="Наприклад: не додавати цибулю..."></textarea>
+                </div>
+
+                <div class="buttons-row">
+                    <button type="submit" class="btn btn-primary">Підтвердити замовлення 🔔</button>
+                    <button type="reset" class="btn btn-outline">Очистити</button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Блок 2: Медіа та Підсумкова таблиця -->
+        <section class="summary-section">
+            <h2>Прев'ю та розрахунок</h2>
+
+            <figure class="media-card">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80" alt="Свіжа піца УКД" class="media-img">
+                <figcaption class="media-caption">
+                    <strong>Піца "Студентська Фірмова"</strong>
+                    <span>Мисливські ковбаски, моцарела, соус, хрустка скоринка.</span>
+                </figcaption>
+            </figure>
+
+            <div class="table-container">
+                <table class="summary-table">
+                    <caption>Деталізація вартості</caption>
+                    <thead>
+                    <tr>
+                        <th>Найменування</th>
+                        <th>К-сть</th>
+                        <th>Сума</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Піца "Студентська"</td>
+                        <td>1 шт</td>
+                        <td>95.00 грн</td>
+                    </tr>
+                    <tr>
+                        <td>Додаткові соуси</td>
+                        <td>2 шт</td>
+                        <td>20.00 грн</td>
+                    </tr>
+                    <tr>
+                        <td>Упаковка</td>
+                        <td>1 шт</td>
+                        <td>5.00 грн</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">Студентська знижка (10%)</td>
+                        <td>-12.00 грн</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2">Загалом до сплати:</td>
+                        <td>108.00 грн</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="form-group disabled-example">
+                <label for="promoCode">Промокод (недоступно)</label>
+                <input type="text" id="promoCode" class="input-field" value="STUDENT2026" disabled>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 Буфет Університету Короля Данила. Всі права захищено.</p>
+</footer>
+
+<!-- Скрипт звукового сигналу підтвердження -->
+<script>
+    function playSuccessSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const now = ctx.currentTime;
+
+            // Перший тон (C5)
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(523.25, now);
+            gain1.gain.setValueAtTime(0.3, now);
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc1.connect(gain1);
+            gain1.connect(ctx.destination);
+            osc1.start(now);
+            osc1.stop(now + 0.2);
+
+            // Другий тон (E5) - звук готовності
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(659.25, now + 0.15);
+            gain2.gain.setValueAtTime(0.4, now + 0.15);
+            gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.start(now + 0.15);
+            osc2.stop(now + 0.5);
+        } catch (e) {
+            console.log("Audio Context error:", e);
+        }
+    }
+
+    function handleOrderSubmit(event) {
+        event.preventDefault();
+        playSuccessSound();
+        alert("🔔 Замовлення успішно підтверджено! Очікуйте в обраний час.");
+    }
+</script>
+</body>
+</html>
